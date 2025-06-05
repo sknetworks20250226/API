@@ -37,13 +37,13 @@ class Observer:  # 추상화(다양한 옵저버 대상클래스들을 커버)
     
 # 옵저버... RAG 시스템의 검색메소드    
 class SearchModule(Observer):  # RAG
-    async def update(self, message):
+    def update(self, message):
         print(f'RAG 검색모듈: {message}, 인덱스 업데이트')
 
 # BookManager (Subject 상속)
 class BookManager(Subject):
     # 책 추가
-    async def add_book(self, book : BookCreate):
+    def add_book(self, book : BookCreate):
         new_id = max(b.id for b in books) + 1
         new_books = Book(id = new_id, title = book.title)        
         books.append(new_books)
@@ -61,9 +61,9 @@ def intro():
     return RedirectResponse(url="/docs")
 # 호출
 @app.get("/books",response_model = List[Book], tags=['Books'])
-def get_books():
+async def get_books():
     return books
 
 @app.post('/book', response_model = Book,tags=['Books'])
-def create_book(book:BookCreate):
+async def create_book(book:BookCreate):
     return book_manager.add_book(book)
