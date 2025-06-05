@@ -14,7 +14,7 @@ class User(BaseModel):
 
 
 def main():
-    u1 = User(id=1.5, name='홍길동')    
+    u1 = User(id=1, name='홍길동')    
     print(u1.id, u1.name)
 
 if __name__ =='__main__':
