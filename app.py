@@ -29,6 +29,7 @@ class Subject:
     def notify( self, message):
         for obs in self._observer:
             obs.update(message)
+
 class Observer:  # 추상화(다양한 옵저버 대상클래스들을 커버)
     def update(self, message):
         raise NotImplementedError
@@ -42,6 +43,23 @@ class SearchModule(Observer):  # RAG
 class BookManager(Subject):
     # 책 추가
     def add_book(self, book : BookCreate):
-        new_book = Book(id = 1, title = book.title)        
-        self.notify(f'새로운 도서 추가 : {new_book.title}')
-               
+        new_id = max(b.id for b in books) + 1
+        new_books = Book(id = new_id, title = book.title)        
+        books.append(new_books)
+        self.notify(f'새로운 도서 추가 : {new_books.title}')
+        return new_books
+
+# API엔드 포인트
+book_manager = BookManager()
+search_module = SearchModule()
+book_manager.add_observer(search_module)
+
+app = FastAPI()
+# 호출
+@app.get("/books",response_model = List[Book], tags=['Books'])
+def get_books():
+    return books
+
+@app.post('/book')
+def create_book(book:BookCreate, response_model = Book,tags=['Books']):
+    return book_manager.add_book(book)
