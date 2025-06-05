@@ -1,0 +1,33 @@
+# 운영체제 별
+.DS_Store         # macOS
+Thumbs.db         # Windows
+
+# 로그파일
+*.log
+
+# Node.js 프로젝트 (예: React, Vue, Next.js 등)
+node_modules/
+dist/
+build/
+npm-debug.log*
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+env/
+venv/
+
+# Java
+*.class
+*.jar
+target/
+
+# 기타 IDE나 도구
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# 환경파일 (보안상 노출 방지)
+.env
+.env.local
