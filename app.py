@@ -60,6 +60,6 @@ app = FastAPI()
 def get_books():
     return books
 
-@app.post('/book')
-def create_book(book:BookCreate, response_model = Book,tags=['Books']):
+@app.post('/book', response_model = Book,tags=['Books'])
+def create_book(book:BookCreate):
     return book_manager.add_book(book)
