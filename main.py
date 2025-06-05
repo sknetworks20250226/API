@@ -1,3 +1,5 @@
+# 터미널에서 pip install fastapi uvicorn 인스톨 해야 합니다.
+
 from fastapi import FastAPI
 from pydantic import BaseModel
 
