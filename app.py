@@ -56,6 +56,7 @@ search_module = SearchModule()
 book_manager.add_observer(search_module)
 
 app = FastAPI()
+
 @app.get("/",tags=['Swagger UI'])
 def intro():
     return RedirectResponse(url="/docs")
@@ -67,3 +68,5 @@ async def get_books():
 @app.post('/book', response_model = Book,tags=['Books'])
 async def create_book(book:BookCreate):
     return book_manager.add_book(book)
+
+# 실행은 터미널에서 uvicorn app:app --reload              app:app -->      파이썬파일명:app
