@@ -37,13 +37,13 @@ class Observer:  # 추상화(다양한 옵저버 대상클래스들을 커버)
     
 # 옵저버... RAG 시스템의 검색메소드    
 class SearchModule(Observer):  # RAG
-    def update(self, message):
+    async def update(self, message):
         print(f'RAG 검색모듈: {message}, 인덱스 업데이트')
 
 # BookManager (Subject 상속)
 class BookManager(Subject):
     # 책 추가
-    def add_book(self, book : BookCreate):
+    async def add_book(self, book : BookCreate):
         new_id = max(b.id for b in books) + 1
         new_books = Book(id = new_id, title = book.title)        
         books.append(new_books)
