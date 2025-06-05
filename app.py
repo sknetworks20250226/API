@@ -4,6 +4,7 @@
 # POST / book  : 등록
 # 옵져버 패턴을 적용 새도서 추가 RAG시스템의 검색 모듈에 알림
 from fastapi import FastAPI,HTTPException
+from fastapi.responses import RedirectResponse
 from pydantic import BaseModel
 from typing import List,Dict
 import uvicorn  # Swagger UI 를 지원하는 서버
@@ -55,6 +56,9 @@ search_module = SearchModule()
 book_manager.add_observer(search_module)
 
 app = FastAPI()
+@app.get("/",tags=['Swagger UI'])
+def intro():
+    return RedirectResponse(url="/docs")
 # 호출
 @app.get("/books",response_model = List[Book], tags=['Books'])
 def get_books():
